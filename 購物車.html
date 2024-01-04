@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+      <link rel="stylesheet" href="cart.css" />
+	  <link rel="shortcut icon" href="logo.png" type="logo.png" />
+	<title>購物車</title>
+	<style>
+		table {
+			border-collapse: collapse;
+			width: 100%;
+		}
+
+		th, td {
+			text-align: left;
+			padding: 8px;
+			border-bottom: 1px solid #ddd;
+		}
+
+		tr:hover {
+			background-color: #f5f5f5;
+		}
+
+		.check {
+			width: 20px;
+		}
+
+		.delete {
+			color: #846e89;
+			cursor: pointer;
+		}
+
+		.total {
+			font-weight: bold;
+			text-align: right;
+		}
+
+		#checkout {
+			margin-top: 20px;
+			text-align: right;
+		}
+	</style>
+</head>
+<body>
+	<h1>購物車</h1>
+	<table>
+		<thead>
+			<tr>
+				<th class="check"></th>
+				<th>商品名稱</th>
+				<th>價格</th>
+				<th>數量</th>
+				<th>小計</th>
+				<th class="delete"></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr class="item-row" data-id="1">
+				<td class="check"><input type="checkbox" name="item[]" value="1"></td>
+				<td>商品1</td>
+				<td>10.00</td>
+				<td><input type="number" name="quantity[]" value="1"></td>
+				<td class="subtotal">10.00</td>
+				<td class="delete">X</td>
+			</tr>
+			<tr class="item-row" data-id="2">
+				<td class="check"><input type="checkbox" name="item[]" value="2"></td>
+				<td>商品2</td>
+				<td>20.00</td>
+				<td><input type="number" name="quantity[]" value="1"></td>
+				<td class="subtotal">20.00</td>
+				<td class="delete">X</td>
+			</tr>
+			<tr class="item-row" data-id="3">
+				<td class="check"><input type="checkbox" name="item[]" value="3"></td>
+				<td>商品3</td>
+				<td>30.00</td>
+				<td><input type="number" name="quantity[]" value="1"></td>
+				<td class="subtotal">30.00</td>
+				<td class="delete">X</td>
+			</tr>
+		</tbody>
+		<tfoot>
+			<tr>
+				<td colspan="4" class="total">總計：</td>
+				<td class="total" id="total">0.00</td>
+				<td></td>
+			</tr>
+		</tfoot>
+	</table>
+	<div id="checkout">
+		<button onclick="checkout()">結算</button>
+	</div>
+
+	<script>
+		// 計算小計和總計
+		function updateSubtotal() {
+			var rows = document.querySelectorAll('.item-row');
+			var total = 0;
+			for (var i = 0; i < rows.length; i++) {
+				var row = rows[i];
+				var price = parseFloat(row.querySelector('td:nth-child(3)').textContent);
+				var quantity = parseInt(row.querySelector('input[name="quantity[]"]').value);
+				var subtotal = price * quantity;
+				row.querySelector('.subtotal').textContent = subtotal.toFixed(2);
+				total += subtotal;
+			}
+			document.querySelector('#total').textContent = total.toFixed(2);
+		}
+
+		// 刪除商品
+		function deleteItem() {
+			var row = this.parentNode;
+			row.parentNode.removeChild(row);
+			updateSubtotal();
+		}
+
+		// 添加商品
+		function addItem() {
+			var table = document.querySelector('table');
+			var row = table.insertRow(-1);
+			row.classList.add('item-row');
+			row.dataset.id = Date.now(); // 生成一個隨機ID
+			row.innerHTML = `
+				<td class="check"><input type="checkbox" name="item[]" value="${row.dataset.id}"></td>
+				<td><input type="text" name="name[]"></td>
+				<td><input type="number" name="price[]" step="0.01"></td>
+				<td><input type="number" name="quantity[]" value="1"></td>
+				<td class="subtotal">0.00</td>
+				<td class="delete">X</td>
+			`;
+			row.querySelector('.delete').addEventListener('click', deleteItem);
+			row.querySelector('input[name="quantity[]"]').addEventListener('input', updateSubtotal);
+			row.querySelector('input[name="price[]"]').addEventListener('input', updateSubtotal);
+		}
+
+		// 結算選中的商品
+		function checkout() {
+			var items = document.querySelectorAll('input[name="item[]"]:checked');
+			var ids = [];
+			for (var i = 0; i < items.length; i++) {
+				ids.push(items[i].value);
+			}
+			if (ids.length > 0) {
+				window.location.href = 'checkout.php?ids=' + ids.join(',');
+			} else {
+				alert('請選擇要結算的商品');
+			}
+		}
+
+		// 绑定事件
+		var deleteButtons = document.querySelectorAll('.delete');
+		for (var i = 0; i < deleteButtons.length; i++) {
+			deleteButtons[i].addEventListener('click', deleteItem);
+		}
+		var addBtn = document.querySelector('#add');
+		addBtn.addEventListener('click', addItem);
+		var quantityInputs = document.querySelectorAll('input[name="quantity[]"]');
+		for (var i = 0; i < quantityInputs.length; i++) {
+			quantityInputs[i].addEventListener('input', updateSubtotal);
+		}
+		var priceInputs = document.querySelectorAll('input[name="price[]"]');
+		for (var i = 0; i < priceInputs.length; i++) {
+			priceInputs[i].addEventListener('input', updateSubtotal);
+		}
+	</script>
+</body>
+</html>
+`

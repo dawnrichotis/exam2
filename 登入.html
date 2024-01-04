@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="shortcut icon" href="logo.png" type="logo.png" />
+  <title>立即登入</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: Arial, sans-serif;
+    }
+
+    #formContainer {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start; /* Align at the top */
+      height: 100vh;
+      background-color: #846e89; /* Background color for the form container */
+    }
+
+    .formRight {
+      text-align: center; /* Optional: Center align the contents inside formRight */
+      padding: 20px;
+      background-color: #fff; /* Background color for the form */
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: Add a box shadow for a raised effect */
+    }
+
+    /* Apply different colors to specific elements */
+    #login h1 {
+      color: #ffffff; /* Color for the h1 heading */
+    }
+
+    button {
+      background-color: #ffffff; /* Background color for the button */
+      color: #846e89; /* Text color for the button */
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #ae98b6; /* Hover color for the button */
+    }
+  </style>
+</head>
+
+<body>
+  <div id="formContainer" class="dwo">
+    <div class="formRight">
+      <!-- Login form -->
+      <form id="login">
+        <header>
+          <h1>歡迎回來</h1>
+          <p>請先登入</p>
+        </header>
+        <section>
+          <label>
+            <p>用戶名</p>
+            <input type="text" id="userName" />
+            <div class="border"></div>
+          </label>
+          <label>
+            <p>密碼</p>
+            <input type="password" id="pwd" />
+            <div class="border"></div>
+          </label>
+          <button type="button" id="loginButton">登入</button>
+        </section>
+        <footer>
+          <a href="#">忘記密碼</a>
+          <a href="註冊.html" id="registerBtn">註冊新用戶</a>
+        </footer>
+      </form>
+    </div>
+  </div>
+</body>
+
+</html>

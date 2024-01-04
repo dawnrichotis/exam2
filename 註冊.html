@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="shortcut icon" href="logo.png" type="logo.png" />
+  <title>免費註冊</title>
+  <style>
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: Arial, sans-serif;
+    }
+
+    #formContainer {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start; 
+      background-color: #846e89; 
+    }
+
+    .formRight {
+      text-align: center; 
+      padding: 20px;
+      background-color: #fff; 
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+    }
+
+    
+    h1 {
+      color: #ffffff; 
+    }
+
+    button {
+      background-color: #ffffff; 
+      color: #846e89; 
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #ae98b6; 
+    }
+  </style>
+</head>
+
+<body>
+  <div id="formContainer" class="dwo">
+    <div class="formRight">
+      
+      <form id="register" class="otherForm">
+        <header>
+          <h1>用戶註冊</h1>
+          <p>註冊後享有更多服務</p>
+        </header>
+        <section>
+          <label>
+            <p>用戶名</p>
+            <input type="text" id="userName" />
+            <div class="border"></div>
+          </label>
+          <label>
+            <p>電子郵件或手機號碼</p>
+            <input type="email" id="email" />
+            <div class="border"></div>
+          </label>
+          <label>
+            <p>密碼</p>
+            <input type="password" id="pwd" />
+            <div class="border"></div>
+          </label>
+          <label>
+            <p>確認密碼</p>
+            <input type="password" id="repwd" />
+            <div class="border"></div>
+          </label>
+          <button id="btn" type="button">註冊</button>
+        </section>
+        <footer>
+          <a href="登入.html">返回</a>
+        </footer>
+      </form>
+    </div>
+  </div>
+</body>
+
+</html>
